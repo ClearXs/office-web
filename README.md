@@ -6,7 +6,7 @@
 
 ## 概要
 
-CollabSpace 是一个私有化在线文档协作空间，提供了在线文档查看，编辑，以及协同。
+在线协作空间Web端，基于nextjs框架，包含前台用户界面与后台管理。
 
 ## 技术栈
 
@@ -34,16 +34,3 @@ npm run dev
 ```bash
 npm run build
 ```
-
-## 界面预览
-
-<table>
-    <tr>
-        <td><img src="./docs/images/preview1.png" alt="preview1"/></td>
-        <td><img src="./docs/images/preview2.png" alt="preview2"/></td>
-        <td><img src="./docs/images/preview3.png" alt="preview3"/></td>
-    </tr>
-    <tr>
-        <td><img src="./docs/images/preview4.png" alt="preview4"/></td>
-    </tr>
-</table>
