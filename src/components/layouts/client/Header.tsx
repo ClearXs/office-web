@@ -19,6 +19,7 @@ import {
   Button,
   Col,
   Dropdown,
+  Image,
   Popover,
   Row,
   Space,
@@ -47,6 +48,7 @@ import { MultipleQueriesResponse, Hit } from '@algolia/client-search';
 import useDocUserApi, { DocUser } from '@/services/docUser';
 import { chooseDocumentIcon } from '@/components/Document/List';
 import HighlightText from '@/components/HighlightText';
+import logo from '@/assets/logo.png';
 
 const Header = observer((props) => {
   const { message, modal } = App.useApp();
@@ -95,7 +97,7 @@ const Header = observer((props) => {
         icon: <UserOutlined />,
         onClick: () => unImplementation(),
       },
-      {
+      userStore.user?.administrator && {
         label: '管理中心',
         key: 'administration',
         icon: <TeamOutlined />,
@@ -112,13 +114,14 @@ const Header = observer((props) => {
       <Row>
         <Col span={6}>
           <div
-            className='cursor-pointer hover:bg-[#f5f5f5] w-[60%] rounded-md'
+            className='cursor-pointer hover:bg-[#f5f5f5] rounded-md flex gap-1 text-center'
             onClick={() => {
               router.push('/');
             }}
             ref={logoRef}
           >
-            <Typography.Title level={5}>CollabSpace</Typography.Title>
+            <Image src={logo.src} preview={false} width={100}></Image>
+            <Typography.Title level={5}>在线协作空间</Typography.Title>
           </div>
         </Col>
         <Col span={18}>

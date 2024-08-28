@@ -102,9 +102,9 @@ const AuthLayout = observer(({ children }: { children: React.ReactNode }) => {
           userApi
             .getCurrentUser()
             .then((res) => {
-              const { code, result } = res;
+              const { code, data } = res;
               if (code === 200) {
-                userStore.setUser(result);
+                userStore.setUser(data);
               }
               chain.proceed(context);
             })

@@ -2,6 +2,7 @@ import useDocUserApi, { DocUser } from '@/services/docUser';
 import {
   ChromeOutlined,
   DeleteOutlined,
+  DeploymentUnitOutlined,
   DownloadOutlined,
   EditOutlined,
   EyeOutlined,
@@ -9,7 +10,9 @@ import {
   PushpinOutlined,
   SaveOutlined,
   ShareAltOutlined,
+  SignatureOutlined,
   TeamOutlined,
+  ToolOutlined,
   UserDeleteOutlined,
   UsergroupDeleteOutlined,
 } from '@ant-design/icons';
@@ -139,11 +142,6 @@ const useDocumentOperatorEmulator = () => {
     if (PREVIEW) {
       viewGroup.push(PREVIEW);
     }
-
-    const DIVIDER: ItemType = { type: 'divider' };
-    if (viewGroup.length > 0) {
-      viewGroup.push(DIVIDER);
-    }
     return viewGroup;
   };
 
@@ -173,8 +171,7 @@ const useDocumentOperatorEmulator = () => {
             closable: true,
             title: '分享',
             footer: null,
-            style: { backgroundColor: '#f0f0f0', padding: 0 },
-            bodyStyle: { backgroundColor: '#f0f0f0' },
+            style: { padding: 0 },
             content: <Share docId={id} />,
           });
         },
@@ -273,11 +270,6 @@ const useDocumentOperatorEmulator = () => {
     if (FAVOR) {
       collectGroup.push(FAVOR);
     }
-
-    const DIVIDER: ItemType = { type: 'divider' };
-    if (collectGroup.length > 0) {
-      collectGroup.push(DIVIDER);
-    }
     return collectGroup;
   };
 
@@ -360,10 +352,6 @@ const useDocumentOperatorEmulator = () => {
 
     if (HISTORY) {
       docModifyGroup.push(HISTORY);
-    }
-    const DIVIDER: ItemType = { type: 'divider' };
-    if (docModifyGroup.length > 0) {
-      docModifyGroup.push(DIVIDER);
     }
     return docModifyGroup;
   };
@@ -508,11 +496,6 @@ const useDocumentOperatorEmulator = () => {
     if (ONLINE_USER) {
       onlineGroup.push(ONLINE_USER);
     }
-
-    const DIVIDER: ItemType = { type: 'divider' };
-    if (onlineGroup.length > 0) {
-      onlineGroup.push(DIVIDER);
-    }
     return onlineGroup;
   };
 
@@ -581,18 +564,53 @@ const useDocumentOperatorEmulator = () => {
   return {
     loadOperatorList: (record: DocUser): ItemType[] => {
       const permission = getCurrentRecordPermission(record);
+
+      const divider: ItemType = { type: 'divider' };
+      const docOperatorList: ItemType[] = [];
+
       const viewGroup = getGroupOfView(record, permission);
+      docOperatorList.push(...viewGroup);
+      docOperatorList.push(divider);
+
       const collectGroup = getGroupOfCollect(record, permission);
+
+      collectGroup.length > 0 &&
+        docOperatorList.push({
+          key: 'collect',
+          type: 'submenu',
+          label: '收集',
+          icon: <DeploymentUnitOutlined />,
+          children: collectGroup,
+        });
+      docOperatorList.push(divider);
+
       const docModifyGroup = getGroupOfDocModify(record, permission);
+
+      docModifyGroup.length > 0 &&
+        docOperatorList.push({
+          key: 'modify',
+          type: 'submenu',
+          label: '文档修改',
+          icon: <SignatureOutlined />,
+          children: docModifyGroup,
+        });
+      docOperatorList.push(divider);
+
       const onlineGroup = getGroupOfOnlineDoc(record, permission);
+
+      onlineGroup.length > 0 &&
+        docOperatorList.push({
+          key: 'online',
+          type: 'submenu',
+          label: '文档操作',
+          icon: <ToolOutlined />,
+          children: onlineGroup,
+        });
+      docOperatorList.push(divider);
+
       const docEditGroup = getGroupOfEdit(record, permission);
-      return [
-        ...viewGroup,
-        ...collectGroup,
-        ...docModifyGroup,
-        ...onlineGroup,
-        ...docEditGroup,
-      ];
+      docOperatorList.push(...docEditGroup);
+      return docOperatorList;
     },
   };
 };

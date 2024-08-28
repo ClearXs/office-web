@@ -18,7 +18,6 @@ import {
   Typography,
 } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import IconDocx from '../Icons/IconDocx';
 import IconXlsx from '../Icons/IconXlsx';
@@ -35,6 +34,7 @@ import useDocumentOperatorEmulator from './Operator';
 import IconStart from '../Icons/IconStar';
 import IconFillStart from '../Icons/IconFillStar';
 import useError from '@/hook/useError';
+import './list.css';
 
 export type IDocumentListProps = {
   api:
@@ -79,8 +79,6 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
 
   const [params, setParams] = useState<DocUserParams>();
   const [docUserList, setDocUserList] = useState<DocUser[]>([]);
-
-  const router = useRouter();
 
   const [itemMouseMoveKey, setItemMouseMoveKey] = useState<string | undefined>(
     undefined
@@ -163,7 +161,7 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
           const { title, type, id, favorite } = record;
           return (
             <div
-              className='hover:bg-[#f0f0f0] flex items-center rounded-md'
+              className='flex items-center rounded-md'
               onMouseMove={() => {
                 itemMouseMoveKey === undefined &&
                   setItemMouseMoveKey(record.id);
@@ -315,6 +313,7 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
               menu={{
                 items: operatorList,
               }}
+              overlayStyle={{ maxHeight: '100px', overflowY: 'auto' }}
             >
               <Button
                 icon={<EllipsisOutlined />}
@@ -332,10 +331,9 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
     <Table
       rowKey='id'
       loading={loading}
-      bordered={false}
+      bordered={true}
       columns={columns}
       dataSource={docUserList}
-      scroll={{ y: '70vh' }}
       onChange={(pagination, filter, sorter) => {
         // clear select document
         documentStore.setSelectDocumentRows([]);

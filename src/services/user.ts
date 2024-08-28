@@ -13,6 +13,7 @@ export type UserInfo = Model & {
   avatar: string;
   status: string;
   orgId: string;
+  administrator: boolean;
   source: 'THIRD' | 'SELF-BUILT';
 };
 

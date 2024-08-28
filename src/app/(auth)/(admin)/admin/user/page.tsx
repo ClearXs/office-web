@@ -1,7 +1,6 @@
 'use client';
 
-import useDocApi from '@/services/admin/doc';
-import { Doc } from '@/services/doc';
+import useUserApi, { User } from '@/services/admin/user';
 import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -17,9 +16,9 @@ const Admin = () => {
   const { message } = App.useApp();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const docApi = useDocApi();
+  const userApi = useUserApi();
 
-  const columns: ProColumns<Doc>[] = useMemo(() => {
+  const columns: ProColumns<User>[] = useMemo(() => {
     return [
       {
         dataIndex: 'index',
@@ -27,8 +26,8 @@ const Admin = () => {
         width: 48,
       },
       {
-        title: '文档名称',
-        dataIndex: 'title',
+        title: '用户名',
+        dataIndex: 'username',
         copyable: true,
         ellipsis: true,
         formItemProps: {
@@ -40,103 +39,21 @@ const Admin = () => {
           ],
         },
       },
-      {
-        disable: true,
-        title: '文档类型',
-        dataIndex: 'type',
-        filters: true,
-      },
-      {
-        disable: true,
-        title: '文档状态',
-        dataIndex: 'type',
-        filters: true,
-      },
-      {
-        disable: true,
-        title: '创建人',
-        dataIndex: 'creator',
-        search: false,
-        renderFormItem: (_, { defaultRender }) => {
-          return defaultRender(_);
-        },
-      },
-      {
-        disable: true,
-        title: '大小',
-        dataIndex: 'type',
-        filters: true,
-      },
-      {
-        title: '修改时间',
-        dataIndex: 'updateTime',
-        valueType: 'dateRange',
-        search: {
-          transform: (value) => {
-            return {
-              startTime: value[0],
-              endTime: value[1],
-            };
-          },
-        },
-      },
-      {
-        title: '操作',
-        valueType: 'option',
-        key: 'option',
-        render: (text, record, _, action) => [
-          <a
-            key='editable'
-            onClick={() => {
-              action?.startEditable?.(record.id);
-            }}
-          >
-            查看
-          </a>,
-          <a
-            key='editable'
-            onClick={() => {
-              action?.startEditable?.(record.id);
-            }}
-          >
-            转移
-          </a>,
-          <a
-            href={record.url}
-            target='_blank'
-            rel='noopener noreferrer'
-            key='view'
-          >
-            恢复
-          </a>,
-          <TableDropdown
-            key='actionGroup'
-            onSelect={() => action?.reload()}
-            menus={[
-              { key: 'copy', name: '复制链接' },
-              { key: 'delete', name: '销毁' },
-            ]}
-          />,
-        ],
-      },
     ];
   }, []);
 
   return (
-    <ProTable<Doc>
+    <ProTable<User>
       columns={columns}
       actionRef={actionRef}
       cardBordered
       loading={loading}
-      request={async ({ current, pageSize, ...params }, sort, filter) => {
+      request={async (params, sort, filter) => {
         setLoading(true);
-        return docApi
+        return userApi
           .page(
-            {
-              current: current as number,
-              size: pageSize as number,
-            },
-            { entity: params }
+            { current: params.current, size: params.pageSize },
+            { ...params }
           )
           .then((res) => {
             const { code, data } = res;

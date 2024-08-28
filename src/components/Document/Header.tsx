@@ -37,9 +37,13 @@ const DocumentHeader = observer(({ title }: IDocumentHeaderProps) => {
       </Typography.Title>
       {documentStore.selectDocumentRows.length > 0 && (
         <Space className='ml-auto'>
-          <Typography.Text>
-            已选{documentStore.selectDocumentRows.length}项
-          </Typography.Text>
+          <span>
+            已选
+            <Typography.Text mark>
+              {documentStore.selectDocumentRows.length}
+            </Typography.Text>
+            项
+          </span>
           <Button
             type='link'
             onClick={() => {

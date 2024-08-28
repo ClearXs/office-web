@@ -5,7 +5,7 @@ import { Api } from '../model/interface';
 export type DocApi = Api<Doc> & {};
 
 const useDocApi = (): DocApi => {
-  const api = useApi<Doc>('/api/doc');
+  const api = useApi<Doc>('/office/doc');
 
   return { ...api };
 };

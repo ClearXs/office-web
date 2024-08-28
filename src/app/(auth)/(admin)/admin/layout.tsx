@@ -17,6 +17,8 @@ import { Button, Tooltip } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import logo from '@/assets/logo.png';
+
 export default function Layout({
   children,
   ...props
@@ -33,6 +35,7 @@ export default function Layout({
   return (
     <div className='h-[100vh]'>
       <ProLayout
+        logo={logo.src}
         fixSiderbar
         title='在线文档协作平台'
         selectedKeys={[selectRouteKey]}

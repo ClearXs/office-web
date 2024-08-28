@@ -65,12 +65,12 @@ const Main = observer(
 
     return (
       <>
-        <main className='flex flex-row mt-1 h-[100%] bg-[#f0f0f0]'>
-          <div className='flex w-64 shadow-xl rounded-md mt-2 mb-2'>
+        <main className='flex flex-row mt-1 h-[100%]'>
+          <div className='flex w-64 shadow-xl rounded-md'>
             <Menu
               mode='inline'
               selectedKeys={[menuStore.mineMenu]}
-              className='h-[100%] w-64'
+              className='h-[100%] w-64 bg-[#f6f8fb]'
               onClick={(e) => menuStore.setMenu(e.key)}
             >
               <div className='flex flex-col m-2 gap-2'>
@@ -236,10 +236,7 @@ const Main = observer(
               </div>
             </Menu>
           </div>
-
-          <div className='m-2 shadow-xl rounded-md bg-[#ffffff]'>
-            {children}
-          </div>
+          <div className='shadow-xl rounded-md p-2 w-[100%]'>{children}</div>
         </main>
 
         <ModalForm<{ title: string }>
