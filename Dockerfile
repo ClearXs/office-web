@@ -7,7 +7,7 @@ RUN npm config set registry http://registry.npmmirror.com
 
 COPY . .
 
-RUN npm install
+RUN npm install --force
 
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
