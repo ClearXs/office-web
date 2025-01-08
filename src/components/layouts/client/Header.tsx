@@ -6,7 +6,6 @@ import {
   InboxOutlined,
   LogoutOutlined,
   MenuOutlined,
-  QuestionOutlined,
   SettingOutlined,
   SkinOutlined,
   TeamOutlined,
@@ -76,7 +75,7 @@ const Header = observer((props) => {
       });
     }
     tourStore.register(1, {
-      title: '仂创在线文档协作平台',
+      title: '在线文档协作平台',
       description: '该平台提供在线编辑office文档,管理,协作,下载等功能',
       placement: 'top',
       target: () => logoRef?.current,
@@ -121,7 +120,6 @@ const Header = observer((props) => {
             ref={logoRef}
           >
             <Image src={logo.src} preview={false} width={100}></Image>
-            <Typography.Title level={5}>在线协作空间</Typography.Title>
           </div>
         </Col>
         <Col span={18}>
@@ -293,10 +291,12 @@ const Header = observer((props) => {
                           <div className='h-[75%] bg-white rounded-r-sm'>
                             <Space className='p-2'>
                               <Avatar className='bg-[#f56a00]'>
-                                {userStore.user?.nickname.substring(0, 1)}
+                                {userStore.user?.nickname?.substring(0, 1) ||
+                                  userStore.user?.username?.substring(0, 1)}
                               </Avatar>
                               <Typography.Text>
-                                {userStore.user?.nickname}
+                                {userStore.user?.nickname ||
+                                  userStore.user?.username}
                               </Typography.Text>
                             </Space>
                             <StatisticCard.Group direction='column'>
@@ -356,7 +356,8 @@ const Header = observer((props) => {
                         className='bg-[#f56a00] cursor-pointer'
                         size='default'
                       >
-                        {userStore.user?.nickname.substring(0, 1)}
+                        {userStore.user?.nickname?.substring(0, 1) ||
+                          userStore.user?.username?.substring(0, 1)}
                       </Avatar>
                     </Popover>
                   </Space>

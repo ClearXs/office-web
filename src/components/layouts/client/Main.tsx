@@ -70,7 +70,7 @@ const Main = observer(
             <Menu
               mode='inline'
               selectedKeys={[menuStore.mineMenu]}
-              className='h-[100%] w-64 bg-[#f6f8fb]'
+              className='h-[100%] w-64'
               onClick={(e) => menuStore.setMenu(e.key)}
             >
               <div className='flex flex-col m-2 gap-2'>
@@ -143,7 +143,10 @@ const Main = observer(
                     name='file'
                     maxCount={1}
                     showUploadList={false}
-                    headers={{ 'X-AUTHENTICATION': token.getToken() }}
+                    headers={{
+                      'X-AUTHENTICATION': token.getToken(),
+                      'X-TENANT': 0,
+                    }}
                     onChange={(info) => {
                       const {
                         file: { status, response },

@@ -1,6 +1,7 @@
 import useRequest from '@/hook/useRequest';
 import { Model } from './model/interface';
 import Result from './model/result';
+import { OnlineDocUser } from '@office-editor/react';
 
 export type Doc = Model & {
   /**
@@ -96,6 +97,17 @@ export type DocApi = {
     docId: string,
     rename: { newfilename: string; ext: string }
   ) => Promise<Result<boolean>>;
+
+  restore: (docId: string, version: number) => Promise<Result<boolean>>;
+  getHistory: (docId: string) => Promise<Result<Record<string, any>>>;
+  getHistoryData: (
+    docId: string,
+    version: number
+  ) => Promise<Result<Record<string, any>>>;
+  kickout: (docId: string, userIds: string[]) => Promise<Result<boolean>>;
+  kickoutOthers: (docId: string) => Promise<Result<boolean>>;
+  kickoutAll: (docId: string) => Promise<Result<boolean>>;
+  getOnlineDocUser: (docId: string) => Promise<Result<OnlineDocUser[]>>;
 };
 
 const useDocApi = (): DocApi => {
@@ -130,6 +142,56 @@ const useDocApi = (): DocApi => {
       return request
         .put(`/api/office/v1/doc/rename/${docId}`, rename)
         .then((res) => res.data);
+    },
+    restore(docId, version): Promise<Result<boolean>> {
+      return request
+        .put(`/api/office/doc/restore/${docId}/${version}`)
+        .then((res) => {
+          return res.data;
+        });
+    },
+    getHistory(docId) {
+      return request.get(`/api/office/doc/history/${docId}`).then((res) => {
+        return res.data;
+      });
+    },
+    getHistoryData(docId, version) {
+      return request
+        .get(`/api/office/doc/historyData/${docId}/${version}`)
+        .then((res) => {
+          return res.data;
+        });
+    },
+    forceSave(docId) {
+      return request.get(`/api/office/doc/forceSave/${docId}`).then((res) => {
+        return res.data;
+      });
+    },
+    kickout(docId, userIds) {
+      return request
+        .post(`/api/office/doc/kickout/${docId}`, userIds)
+        .then((res) => {
+          return res.data;
+        });
+    },
+    kickoutOthers(docId) {
+      return request
+        .post(`/api/office/doc/kickoutOthers/${docId}`)
+        .then((res) => {
+          return res.data;
+        });
+    },
+    kickoutAll(docId) {
+      return request.post(`/api/office/doc/kickoutAll/${docId}`).then((res) => {
+        return res.data;
+      });
+    },
+    getOnlineDocUser(docId) {
+      return request
+        .get(`/api/office/doc/getOnlineDocUser/${docId}`)
+        .then((res) => {
+          return res.data;
+        });
     },
   };
 };

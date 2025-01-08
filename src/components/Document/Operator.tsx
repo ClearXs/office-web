@@ -28,7 +28,7 @@ import IconFillStart from '../Icons/IconFillStar';
 import IconStart from '../Icons/IconStar';
 import useError from '@/hook/useError';
 import Share from './Share';
-import { Authentication } from '@/util/constant';
+import { Authentication, Tenant } from '@/util/constant';
 import useToken from '@/hook/useToken';
 
 type OperatorPermission = {
@@ -133,7 +133,7 @@ const useDocumentOperatorEmulator = () => {
             window.open(
               `/editor/${
                 record.id
-              }?preview=true&${Authentication}=${token.getToken()}`
+              }?preview=true&${Authentication}=${token.getToken()}&${Tenant}=0`
             );
           });
         },
@@ -521,7 +521,7 @@ const useDocumentOperatorEmulator = () => {
         onClick: () => {
           validator(id, () => {
             window.open(
-              `/api/office/v1/doc/download/${id}?${Authentication}=${token.getToken()}`
+              `/api/office/v1/doc/download/${id}?${Authentication}=${token.getToken()}&${Tenant}=0`
             );
           });
         },
@@ -570,7 +570,6 @@ const useDocumentOperatorEmulator = () => {
 
       const viewGroup = getGroupOfView(record, permission);
       docOperatorList.push(...viewGroup);
-      docOperatorList.push(divider);
 
       const collectGroup = getGroupOfCollect(record, permission);
 
@@ -582,7 +581,8 @@ const useDocumentOperatorEmulator = () => {
           icon: <DeploymentUnitOutlined />,
           children: collectGroup,
         });
-      docOperatorList.push(divider);
+
+      collectGroup.length > 0 && docOperatorList.push(divider);
 
       const docModifyGroup = getGroupOfDocModify(record, permission);
 
@@ -594,7 +594,8 @@ const useDocumentOperatorEmulator = () => {
           icon: <SignatureOutlined />,
           children: docModifyGroup,
         });
-      docOperatorList.push(divider);
+
+      docModifyGroup.length > 0 && docOperatorList.push(divider);
 
       const onlineGroup = getGroupOfOnlineDoc(record, permission);
 
@@ -606,7 +607,8 @@ const useDocumentOperatorEmulator = () => {
           icon: <ToolOutlined />,
           children: onlineGroup,
         });
-      docOperatorList.push(divider);
+
+      onlineGroup.length > 0 && docOperatorList.push(divider);
 
       const docEditGroup = getGroupOfEdit(record, permission);
       docOperatorList.push(...docEditGroup);

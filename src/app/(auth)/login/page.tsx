@@ -38,60 +38,6 @@ const Page = () => {
           backgroundColor: 'rgba(0, 0, 0,0.65)',
           backdropFilter: 'blur(4px)',
         }}
-        activityConfig={{
-          style: {
-            boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)',
-            color: token.colorTextHeading,
-            borderRadius: 8,
-            backgroundColor: 'rgba(255,255,255,0.25)',
-            backdropFilter: 'blur(4px)',
-          },
-          title: '在线文档平台-体验版',
-          subTitle: (
-            <>
-              <Space direction='vertical'>
-                <Typography.Title level={5}>体验账号:</Typography.Title>
-                <div className='flex flex-row gap-2'>
-                  <Typography.Text>管理端</Typography.Text>
-                  <Typography.Text
-                    copyable={{ tooltips: false, text: 'admin' }}
-                  >
-                    账号:admin
-                  </Typography.Text>
-                  <Typography.Text copyable={{ tooltips: false, text: '123' }}>
-                    密码:123
-                  </Typography.Text>
-                </div>
-                <div className='flex flex-row gap-2'>
-                  <Typography.Text>普通账号</Typography.Text>
-                  <Typography.Text
-                    copyable={{ tooltips: false, text: 'dtest01' }}
-                  >
-                    账号:dtest01
-                  </Typography.Text>
-                  <Typography.Text
-                    copyable={{ tooltips: false, text: '66666' }}
-                  >
-                    密码:66666
-                  </Typography.Text>
-                </div>
-                <div className='flex flex-row gap-2'>
-                  <Typography.Text>普通账号</Typography.Text>
-                  <Typography.Text
-                    copyable={{ tooltips: false, text: 'dtest02' }}
-                  >
-                    账号:dtest02
-                  </Typography.Text>
-                  <Typography.Text
-                    copyable={{ tooltips: false, text: '66666' }}
-                  >
-                    密码:66666
-                  </Typography.Text>
-                </div>
-              </Space>
-            </>
-          ),
-        }}
         subTitle='在线协作平台'
         onFinish={async (values) => {
           authApi

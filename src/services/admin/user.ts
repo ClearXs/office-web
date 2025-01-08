@@ -9,7 +9,7 @@ export type User = Model & {
   phone: number;
   nickname: string;
   avatar: string;
-  status: string;
+  status: 'ENABLE' | 'DISABLE';
   orgId: string;
   source: 'THIRD' | 'SELF-BUILT';
 };

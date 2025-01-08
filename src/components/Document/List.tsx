@@ -276,13 +276,13 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
       },
       {
         title: '版本号',
-        dataIndex: 'version',
-        key: 'version',
+        dataIndex: 'docVersion',
+        key: 'docVersion',
       },
       {
         title: '最后修改',
-        dataIndex: 'updateTime',
-        key: 'updateTime',
+        dataIndex: 'updatedTime',
+        key: 'updatedTime',
       },
       {
         title: '大小',
@@ -294,7 +294,7 @@ const DocumentList = observer(({ api }: IDocumentListProps) => {
             if (fileJson && Array.isArray(fileJson)) {
               return (
                 fileJson.length > 0 &&
-                formatFileSize(Number(fileJson[0]['fileSize']))
+                formatFileSize(Number(fileJson[0]['filesize']))
               );
             }
           } catch (err) {
