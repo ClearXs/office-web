@@ -3,7 +3,6 @@
 import useUserApi, { User } from '@/services/admin/user';
 import {
   DeleteOutlined,
-  EditOutlined,
   FileTextOutlined,
   PlusOutlined,
   SyncOutlined,
@@ -12,28 +11,17 @@ import {
   ActionType,
   ModalForm,
   ProColumns,
-  ProForm,
   ProFormDigit,
   ProFormInstance,
   ProFormText,
   ProTable,
 } from '@ant-design/pro-components';
-import {
-  App,
-  Button,
-  Dropdown,
-  Flex,
-  MenuProps,
-  Modal,
-  Table,
-  Tag,
-} from 'antd';
+import { App, Button, Dropdown, MenuProps, Table, Tag } from 'antd';
 import { useMemo, useRef, useState } from 'react';
 
-const Admin = () => {
-  const actionRef = useRef<ActionType>();
-  const formRef = useRef<ProFormInstance>();
-  const { message } = App.useApp();
+const UserPage = () => {
+  const actionRef = useRef<ActionType>(null);
+  const formRef = useRef<ProFormInstance>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<boolean>(false);
 
@@ -231,6 +219,7 @@ const Admin = () => {
       <ModalForm
         title={'新建用户'}
         open={form}
+        formRef={formRef}
         width={600}
         submitter={{
           render: (props) => {
@@ -299,4 +288,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default UserPage;

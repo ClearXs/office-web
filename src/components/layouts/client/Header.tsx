@@ -101,7 +101,7 @@ const Header = observer((props) => {
         key: 'administration',
         icon: <TeamOutlined />,
         onClick: () => {
-          router.push('/admin');
+          router.push('/admin/doc');
         },
       },
     ],

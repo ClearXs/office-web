@@ -2,6 +2,7 @@
 
 import { useStore } from '@/hook/useStore';
 import {
+  CloudOutlined,
   FileWordOutlined,
   HomeOutlined,
   InboxOutlined,
@@ -45,7 +46,7 @@ export default function Layout({
             {
               key: 'doc',
               name: '文档管理',
-              path: '/admin',
+              path: '/admin/doc',
               icon: <FileWordOutlined />,
             },
             {
@@ -65,6 +66,12 @@ export default function Layout({
               name: '建议箱',
               icon: <InboxOutlined />,
               path: '/admin/advice',
+            },
+            {
+              key: 'webhook',
+              name: 'webhook',
+              icon: <CloudOutlined />,
+              path: '/admin/webhook',
             },
             {
               key: 'message',

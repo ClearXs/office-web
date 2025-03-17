@@ -61,7 +61,7 @@ export interface RemoteQueryParam {
 
 export type Api<T extends Model> = {
   saveOrUpdate: (model: Partial<T>) => Promise<Result<T>>;
-  deleteBatchIds: (ids: string) => Promise<Result<string>>;
+  deleteBatchIds: (ids: string[]) => Promise<Result<string>>;
   details: (id: string) => Promise<Result<T>>;
   page: (
     page: IPage<T>,

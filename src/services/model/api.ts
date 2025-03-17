@@ -36,9 +36,9 @@ const useApi = <T extends Model>(modelPath: string): Api<T> => {
           return res.data;
         });
     },
-    deleteBatchIds(ids: string): Promise<Result<string>> {
+    deleteBatchIds(ids: string[]): Promise<Result<string>> {
       return request
-        .get(`/api${modelPath}/delete`, { ids })
+        .delete(`/api${modelPath}/delete`, ids)
         .then((res: Record<string, any>) => {
           return res.data;
         });

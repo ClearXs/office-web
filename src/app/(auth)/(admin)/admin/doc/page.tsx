@@ -12,8 +12,8 @@ import {
 import { App, Button, Dropdown } from 'antd';
 import { useMemo, useRef, useState } from 'react';
 
-const Admin = () => {
-  const actionRef = useRef<ActionType>();
+const DocPage = () => {
+  const actionRef = useRef<ActionType>(null);
   const { message } = App.useApp();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -228,4 +228,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default DocPage;
