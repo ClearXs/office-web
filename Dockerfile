@@ -3,17 +3,17 @@ FROM node:20-alpine AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 RUN npm config set registry http://registry.npmmirror.com
 
 COPY . .
 
-RUN npm install --force
-
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+RUN npm install -g pnpm
+RUN pnpm install --force
 
 # build the application
-RUN npm run build
+RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner
